@@ -1,0 +1,174 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0a0a0f;
+  --surface: #111118;
+  --glass: rgba(255,255,255,0.04);
+  --border: rgba(255,255,255,0.08);
+  --amber: #f5a623;
+  --amber-glow: rgba(245,166,35,0.25);
+  --amber-dim: rgba(245,166,35,0.6);
+  --digit-bg: #1a1a24;
+  --digit-hover: #22222e;
+  --op-bg: #1f1a0a;
+  --op-hover: #2e2510;
+  --action-bg: #18181f;
+  --text: #e8e8f0;
+  --text-dim: rgba(232,232,240,0.5);
+  --radius: 20px;
+  --radius-sm: 12px;
+}
+
+html, body, #root {
+  height: 100%;
+  background: var(--bg);
+}
+
+body {
+  font-family: 'Share Tech Mono', monospace;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 0%, rgba(245,166,35,0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 30% at 80% 80%, rgba(245,166,35,0.04) 0%, transparent 60%),
+    var(--bg);
+}
+
+main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 20px;
+}
+
+.calculator {
+  width: 340px;
+  background: var(--surface);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow:
+    0 0 0 1px rgba(245,166,35,0.06),
+    0 40px 80px rgba(0,0,0,0.6),
+    0 0 60px rgba(245,166,35,0.04),
+    inset 0 1px 0 rgba(255,255,255,0.06);
+  overflow: hidden;
+  animation: appear 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: scale(0.88) translateY(20px); }
+  to   { opacity: 1; transform: scale(1)   translateY(0);     }
+}
+
+.display {
+  text-align: right;
+  padding: 22px 28px 18px;
+  color: var(--amber);
+  text-shadow: none;
+  min-height: 124px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 4px;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(245,166,35,0.03) 0%, transparent 100%);
+  transition: font-size 0.15s ease, color 0.2s ease;
+  overflow: hidden;
+}
+
+.display-operation {
+  min-height: 22px;
+  max-width: 100%;
+  color: var(--amber-dim);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 18px;
+  letter-spacing: 0;
+  line-height: 1.1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.display-value {
+  max-width: 100%;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 68px;
+  letter-spacing: 2px;
+  line-height: 0.95;
+  word-break: break-all;
+}
+
+.display.shrink .display-value { font-size: 42px; }
+.display.error .display-value { color: #ff4d4d; text-shadow: none; font-size: 52px; }
+
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+}
+
+.calc-btn {
+  border: none;
+  cursor: pointer;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 22px;
+  padding: 0;
+  height: 72px;
+  transition: background 0.12s ease, transform 0.08s ease, box-shadow 0.12s ease;
+  position: relative;
+  overflow: hidden;
+  outline: none;
+  color: var(--text);
+  background: var(--digit-bg);
+}
+
+.calc-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.12) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.12s;
+}
+
+.calc-btn:active::after { opacity: 1; }
+.calc-btn:active { transform: scale(0.94); }
+
+.calc-btn:hover { background: var(--digit-hover); }
+.calc-btn.wide { grid-column: span 2; }
+
+.calc-btn.operator {
+  background: var(--op-bg);
+  color: var(--amber);
+  font-size: 26px;
+}
+.calc-btn.operator:hover { background: var(--op-hover); }
+
+.calc-btn.equals {
+  background: var(--amber);
+  color: #0a0a0f;
+  font-size: 26px;
+  font-weight: bold;
+  box-shadow: 0 0 20px var(--amber-glow);
+}
+.calc-btn.equals:hover {
+  background: #f7b840;
+  box-shadow: 0 0 30px rgba(245,166,35,0.4);
+}
+
+.calc-btn.action {
+  background: var(--action-bg);
+  color: var(--text-dim);
+  font-size: 18px;
+}
+.calc-btn.action:hover {
+  background: #202028;
+  color: var(--text);
+}
