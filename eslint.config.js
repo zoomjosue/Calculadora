@@ -11,6 +11,11 @@ export default [
     languageOptions: {
       parser: tsParser,
       parserOptions: { ecmaFeatures: { jsx: true } },
+      globals: {
+        document: 'readonly',
+        window: 'readonly',
+        console: 'readonly',
+      },
     },
     plugins: {
       '@typescript-eslint': tsPlugin,
